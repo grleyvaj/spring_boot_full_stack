@@ -23,7 +23,7 @@
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
     <!-- Nuestro css-->
-    <link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+    <link rel="stylesheet" type="text/css" href="/css/user-form.css"
           th:href="@{/css/user-form.css}">
     <!-- DATA TABLE -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -43,10 +43,10 @@
     <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
         <ul class="nav nav-tabs justify-content-end">
             <li class="nav-item">
-                <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">List</a>
+                <a class="nav-link" th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form</a>
+                <a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">

@@ -3,8 +3,6 @@ This is a Full Stack Projects with Spring Boot. They followed in the steps of:
  > Spring Boot Aplicacion Completa: https://youtu.be/fWOlTvmBiQA
 
 ## Contents
-Step 1: Create project and define JAVA_HOME and MAVEN_HOME environment variables
-
 Step 1: Setup of Enviromnment
 - Setup of workspace
 - Clone Repository

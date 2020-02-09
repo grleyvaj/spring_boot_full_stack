@@ -8,7 +8,7 @@ Step 1: Setup of Environment
 - Clone Repository
 - Start Database Server
 
-Step 2: Create Entities
+Step 2: Create Entities with JPA
 - Create User Entity
 - Create Role Entity
 	

@@ -3,7 +3,7 @@ This is a Full Stack Projects with Spring Boot. They followed in the steps of:
  > Spring Boot Aplicacion Completa: https://youtu.be/fWOlTvmBiQA
 
 ## Contents
-Step 1: Setup of Enviromnment
+Step 1: Setup of Environment
 - Setup of workspace
 - Clone Repository
 - Start Database Server

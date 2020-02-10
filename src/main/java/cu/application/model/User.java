@@ -1,7 +1,10 @@
 package cu.application.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,20 +19,25 @@ public class User implements Serializable {
     private Long id;
 
     @Column
+    @NotBlank
+    @Size(min = 5, max = 8, message = "No se cumplen las reglas del tamaño")
     private String firstName;
     @Column
+    @NotBlank
     private String lastName;
-    @NotNull
-    @Column
+    @Column(unique = true)
+    @Email
+    @NotBlank
     private String email;
-    @NotNull
     @Column
+    @NotBlank
     private String username;
-    @NotNull
     @Column
+    @NotBlank
     private String password;
 
     @Transient
+    @NotBlank
     private String confirmPassword;
 
     @ManyToMany(fetch = FetchType.LAZY,

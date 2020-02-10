@@ -5,4 +5,6 @@ import cu.application.model.User;
 public interface IUserService {
 
     public Iterable<User> getAllUsers();
+
+    public User createUser(User user) throws Exception;
 }

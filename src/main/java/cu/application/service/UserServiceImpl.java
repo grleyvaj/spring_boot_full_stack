@@ -26,6 +26,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     private boolean checkPasswordValid(User user) throws Exception {
+        if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty())
+            throw new Exception("Confirm Password is obligatory");
         if (!user.getPassword().equals(user.getConfirmPassword()))
             throw new Exception("Password does not mach");
         return true;
@@ -40,4 +42,31 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
+    @Override
+    public User getUserById(Long id) throws Exception {
+       User user = repo.findById(id).orElseThrow(() -> new Exception("The user to edit does not exist"));
+       return user;
+    }
+
+    @Override
+    public User updateUser(User fromUser) throws Exception {
+        //Hay q consultarlo porq sino cree q es uno nuevo porq no tiene session abierta
+        User toUser = getUserById(fromUser.getId());
+        mapUser(fromUser, toUser);
+        return repo.save(toUser);
+    }
+
+    /**
+     * Map everithing but the password
+     * @param from
+     * @param to
+     */
+    protected void mapUser(User from, User to){
+        to.setUsername(from.getUsername());
+        to.setFirstName(from.getFirstName());
+        to.setLastName(from.getLastName());
+        to.setEmail(from.getEmail());
+        to.setRoles(from.getRoles());
+        //to.setPassword(from.getPassword());
+    }
 }

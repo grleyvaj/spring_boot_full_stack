@@ -22,16 +22,20 @@ public class User implements Serializable {
     @NotBlank
     @Size(min = 5, max = 8, message = "No se cumplen las reglas del tamaño")
     private String firstName;
+
     @Column
     @NotBlank
     private String lastName;
+
     @Column(unique = true)
     @Email
     @NotBlank
     private String email;
+
     @Column
     @NotBlank
     private String username;
+
     @Column
     @NotBlank
     private String password;

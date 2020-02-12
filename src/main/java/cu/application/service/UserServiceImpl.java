@@ -44,8 +44,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User getUserById(Long id) throws Exception {
-       User user = repo.findById(id).orElseThrow(() -> new Exception("The user to edit does not exist"));
-       return user;
+        User user = repo.findById(id).orElseThrow(() -> new Exception("The user does not exist"));
+        return user;
     }
 
     @Override
@@ -56,12 +56,19 @@ public class UserServiceImpl implements IUserService {
         return repo.save(toUser);
     }
 
+    @Override
+    public void deleteUser(Long id) throws Exception {
+        User user = getUserById(id);
+        repo.delete(user);
+    }
+
     /**
      * Map everithing but the password
+     *
      * @param from
      * @param to
      */
-    protected void mapUser(User from, User to){
+    protected void mapUser(User from, User to) {
         to.setUsername(from.getUsername());
         to.setFirstName(from.getFirstName());
         to.setLastName(from.getLastName());

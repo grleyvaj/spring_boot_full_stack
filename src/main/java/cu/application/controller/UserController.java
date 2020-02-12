@@ -23,26 +23,25 @@ public class UserController {
     IRoleService roleService;
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/userForm")
-    public String getUserForm(Model model){
+    public String userForm(Model model) {
         model.addAttribute("userForm", new User());
         model.addAttribute("userList", userService.getAllUsers());
-        model.addAttribute("roles",roleService.getAllRole());
+        model.addAttribute("roles", roleService.getAllRole());
         model.addAttribute("listTab", "active");
         return "user-form/user-view";
     }
 
     @PostMapping("/userForm")
-    public String createUser(@Validated @ModelAttribute("userForm")User user, BindingResult result, ModelMap model){
-        if (result.hasErrors()){
+    public String createUser(@Validated @ModelAttribute("userForm") User user, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
             model.addAttribute("userForm", user);
             model.addAttribute("formTab", "active");
-        }
-        else {
+        } else {
             try {
                 userService.createUser(user);
                 //refrescar y dejar como estaba antes
@@ -53,38 +52,35 @@ public class UserController {
                 model.addAttribute("userForm", user);
                 model.addAttribute("formTab", "active");
                 model.addAttribute("userList", userService.getAllUsers());
-                model.addAttribute("roles",roleService.getAllRole());
+                model.addAttribute("roles", roleService.getAllRole());
             }
         }
         model.addAttribute("userList", userService.getAllUsers());
-        model.addAttribute("roles",roleService.getAllRole());
+        model.addAttribute("roles", roleService.getAllRole());
         return "user-form/user-view";
     }
 
     @GetMapping("/editUser/{id}")
-    public  String getEditUserForm(Model model, @PathVariable(name = "id")Long id) throws Exception{
+    public String getEditUserForm(Model model, @PathVariable(name = "id") Long id) throws Exception {
         User userToEdit = userService.getUserById(id);
 
         model.addAttribute("userForm", userToEdit);
         model.addAttribute("userList", userService.getAllUsers());
-        model.addAttribute("roles",roleService.getAllRole());
+        model.addAttribute("roles", roleService.getAllRole());
         model.addAttribute("formTab", "active");
         //comportamiento de esta página, de sus botones, etc
         model.addAttribute("editMode", "true");
-
-        //8:18 del 6to video --- ocultar campos password del editar
         return "user-form/user-view";
     }
 
     @PostMapping("/editUser")
-    public  String postEditUserForm(@Validated @ModelAttribute("userForm")User user, BindingResult result, ModelMap model){
-        if (result.hasErrors()){
+    public String postEditUserForm(@Validated @ModelAttribute("userForm") User user, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
             model.addAttribute("userForm", user);
             model.addAttribute("formTab", "active");
             model.addAttribute("editMode", "true");
             System.out.println("Tuvo error en las validaciones, mostrarlos");
-        }
-        else {
+        } else {
             try {
                 userService.updateUser(user);
                 //refrescar y dejar como estaba antes
@@ -97,18 +93,29 @@ public class UserController {
                 model.addAttribute("userForm", user);
                 model.addAttribute("formTab", "active");
                 model.addAttribute("userList", userService.getAllUsers());
-                model.addAttribute("roles",roleService.getAllRole());
+                model.addAttribute("roles", roleService.getAllRole());
 //                si se lanza una exception, se debe quedar en la misma pantalla con los campos del user llenos
                 model.addAttribute("editMode", "true");
             }
         }
         model.addAttribute("userList", userService.getAllUsers());
-        model.addAttribute("roles",roleService.getAllRole());
+        model.addAttribute("roles", roleService.getAllRole());
         return "user-form/user-view";
     }
 
     @GetMapping("/userForm/cancel")
-    public String cancelEditUser(ModelMap map){
+    public String cancelEditUser(ModelMap map) {
         return "redirect:/userForm";
     }
+
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(Model model, @PathVariable(name = "id") Long id){
+        try {
+            userService.deleteUser(id);
+        } catch (Exception e) {
+            model.addAttribute("listErrorMessage", e.getMessage());
+        }
+        return userForm(model);
+    }
+
 }

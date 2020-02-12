@@ -1,5 +1,6 @@
 package cu.application.controller;
 
+import cu.application.dto.ChangePasswordForm;
 import cu.application.model.User;
 import cu.application.service.IRoleService;
 import cu.application.service.IUserService;
@@ -70,6 +71,8 @@ public class UserController {
         model.addAttribute("formTab", "active");
         //comportamiento de esta página, de sus botones, etc
         model.addAttribute("editMode", "true");
+        //para cambiar contraseña
+        model.addAttribute("passwordForm", new ChangePasswordForm(id));
         return "user-form/user-view";
     }
 
@@ -79,7 +82,8 @@ public class UserController {
             model.addAttribute("userForm", user);
             model.addAttribute("formTab", "active");
             model.addAttribute("editMode", "true");
-            System.out.println("Tuvo error en las validaciones, mostrarlos");
+            //para cambiar contraseña
+            model.addAttribute("passwordForm", new ChangePasswordForm(user.getId()));
         } else {
             try {
                 userService.updateUser(user);
@@ -96,6 +100,9 @@ public class UserController {
                 model.addAttribute("roles", roleService.getAllRole());
 //                si se lanza una exception, se debe quedar en la misma pantalla con los campos del user llenos
                 model.addAttribute("editMode", "true");
+                //para cambiar contraseña
+                model.addAttribute("passwordForm", new ChangePasswordForm(user.getId()));
+
             }
         }
         model.addAttribute("userList", userService.getAllUsers());

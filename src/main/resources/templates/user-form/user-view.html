@@ -10,7 +10,7 @@
             crossorigin="anonymous"></script>
 
     <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/ /css/bootstrap.min.css">
     <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script
@@ -79,6 +79,7 @@
         </div>
     </div>
 </div>
+<div th:if="${editMode}" th:include="user-form/change-password.html" th:remove="tag"></div>
 <div th:include="user-form/confirm-delete-dialog.html" th:remove="tag"></div>
 </body>
 </html>

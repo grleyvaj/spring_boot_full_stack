@@ -1,5 +1,6 @@
 package cu.application.service;
 
+import cu.application.dto.ChangePasswordForm;
 import cu.application.model.User;
 import cu.application.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +76,21 @@ public class UserServiceImpl implements IUserService {
         to.setEmail(from.getEmail());
         to.setRoles(from.getRoles());
         //to.setPassword(from.getPassword());
+    }
+
+    public User changePassword(ChangePasswordForm form) throws Exception {
+        User user = getUserById(form.getId());
+
+        if (!user.getPassword().equals(form.getCurrentPassword())) {
+            throw new Exception("Current Password invalid");
+        }
+        if (user.getPassword().equals(form.getNewPassword())) {
+            throw new Exception("Your new password could be different to actual");
+        }
+        if (!form.getNewPassword().equals(form.getConfirmPassword())) {
+            throw new Exception("Passwords doesn't match");
+        }
+        user.setPassword(form.getNewPassword());
+        return repo.save(user);
     }
 }
